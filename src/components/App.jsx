@@ -16,7 +16,7 @@ export class App extends Component {
 
   createContact = evt => {
     evt.preventDefault()
-    if(0==this.state.contacts.filter(check=>{
+    if(0===this.state.contacts.filter(check=>{
       return(
       check.name.toLowerCase().includes(evt.target.childNodes[2].value.toLowerCase()) ||
       check.number.includes(evt.target.childNodes[6].value));
@@ -38,7 +38,7 @@ export class App extends Component {
   deleteItem = e => {
     e.target.parentNode.classList.add("invisible");
     const contacts = this.state.contacts.filter(el => {
-       return (el.id != e.target.parentNode.id)}); 
+       return (el.id !== e.target.parentNode.id)}); 
       this.setState({contacts});
   };
 
