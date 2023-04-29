@@ -23,8 +23,7 @@ constructor(){
       <>
         <h2>Contacts</h2>
         <input type="text" onChange={evt=>{
-          this.setState(this.search(evt))
-          ;
+          this.search(evt)
           }} />
         <ul>
         { 
