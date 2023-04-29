@@ -2,41 +2,46 @@ import { Component } from 'react';
 
 export class Filter extends Component {
   state = {
-    list: []
-  };
+    contacts: [],
+    searchBy : ""
+  }
 
 constructor(){
   super();
   this.search.bind(this);
 }
 
-  search(searchBy, contacts){
-    contacts.filter(check => {
-      console.log(check);
-      return(
-        check.name.toLowerCase().includes(searchBy.toLowerCase()) ||
-        check.number.includes(searchBy)
-      );
-    })};
+  search = evt =>{
+    const searchBy = evt.target.value;
+    this.setState(()=>({
+      searchBy : searchBy
+    }))
+  };
 
   render(){
     return (
       <>
         <h2>Contacts</h2>
         <input type="text" onChange={evt=>{
-          evt.preventDefault();
-          console.log(this.props.contacts);
-          this.search(evt.target.value, this.props.contacts);
+          this.setState(this.search(evt))
+          ;
           }} />
         <ul>
-          {this.state.list.map(item => (
-            <li key={item.id} id={item.id}>{item.name+": "+item.number}
-              <button type='button' onClick={this.props.deleteItem}>
-                delete
-              </button>
-            </li>
-          ))}
-        </ul>
+        { 
+          this.props.contacts.map(ele => {
+            console.log(ele.id)
+            if(ele.name.toLowerCase().includes(this.state.searchBy.toLowerCase()) ||
+            ele.number.includes(this.state.searchBy)){
+            return(
+              <li key={ele.id} id={ele.id}>
+                {ele.name + ': ' + ele.number}
+                <button onClick={e=>{this.props.deleteItem(e)}}>delete</button>
+              </li>)
+            }else{
+              return "";
+            }
+          })}
+        </ul> 
       </>
     );
   }
