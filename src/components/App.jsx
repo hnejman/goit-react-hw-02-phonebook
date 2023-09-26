@@ -16,10 +16,7 @@ export class App extends Component {
     if (
         !this.state.contacts.filter(check => {
           return (
-            check.name
-              .toLowerCase()
-              .includes(temporalName.toLowerCase()) ||
-            check.number.includes(temporalNumber)
+            check.name.toLowerCase() === temporalName.toLowerCase()
           );
         }).length
     ) {
@@ -34,7 +31,6 @@ export class App extends Component {
       }));
     } else {
       alert(evt.target.elements.name.value + ' already in contacts');
-      return 0;
     }
   }
 
@@ -47,10 +43,12 @@ export class App extends Component {
 
   render() {
     return (
-      <>
+      <div>
         <Contacts createContact={this.createContact}/>
-        <Filter contacts={this.state.contacts} deleteItem={this.deleteItem}/>
-      </>
+        <Filter 
+        contacts={this.state.contacts} 
+        deleteItem={this.deleteItem} />
+      </div>
     );
   }
 }
